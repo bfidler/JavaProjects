@@ -206,8 +206,15 @@ public class GameBoard {
     @Override
     public String toString(){
 
-        //Creating a string to return and labeling the columns
-        String boardString = ("  0 1 2 3 4 5 6 7 \n");
+        //Creating a string to return
+        String boardString = "  ";
+
+        //labeling the columns
+        for(int i = 0; i < BOARD_LW; i++)
+            boardString = boardString + i + " ";
+
+        //next line
+        boardString = boardString + '\n';
 
         //Double loop to access each board space
         for(int i = 0; i < BOARD_LW; i++){
