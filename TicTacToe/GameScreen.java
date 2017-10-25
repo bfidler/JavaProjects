@@ -4,8 +4,6 @@ import java.lang.*;
 
 public class GameScreen {
 
-    //for reading input in each main/getMove functions
-
     public static void main(String[] args) {
 
         /*The chars are the Xs and Os.
