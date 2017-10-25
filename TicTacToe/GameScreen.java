@@ -1,8 +1,6 @@
-package TicTacToe;
+package cpsc2150.hw2;
 import java.util.*;
 import java.lang.*;
-import TicTacToe.BoardPosition;
-import TicTacToe.GameBoard;
 
 public class GameScreen {
 
@@ -16,6 +14,7 @@ public class GameScreen {
         char player1, player2;
         char keepPlaying = 'Y';
         Scanner input = new Scanner(System.in);
+        final int MAX_SPACES = 64;
 
         //This loop runs until player1 has picked an x or an o
         do {
@@ -75,7 +74,7 @@ public class GameScreen {
                     //The turn of the player is alternated
                     playerTurn = (playerTurn == 1) ? 2 : 1;
                     //gameCat becomes true if the board reaches capacity
-                    gameCat = (boardPieces == GameBoard.MAX_BOARD_SPACES);
+                    gameCat = (boardPieces == MAX_SPACES);
                 }
 
             } while (!gameCat && !gameWin);
@@ -107,9 +106,15 @@ public class GameScreen {
         } while(keepPlaying == 'Y');
     }
 
-    /*This function asks the user for board position, then places a piece
-      on the board (after ensuring it's an available move). It returns the
-     position that was used afterwords. */
+    /**
+     *
+     * @param player
+     * @param tttBoard
+     * @requires [player has an X or O; tttBoard has at least one position
+     *  available]
+     * @ensures [a valid position is returned]
+     * @return the move of the player
+     */
     private static BoardPosition getMove(char player, GameBoard tttBoard) {
 
         BoardPosition move;
@@ -124,8 +129,8 @@ public class GameScreen {
             /*If the position isn't available on the board,
               an error message is printed*/
             if(!tttBoard.checkSpace(moveTry))
-                System.out.println("That space is already taken. Please " +
-                    "enter another location.");
+                System.out.println("That position is unavailable. Please " +
+                    "enter a valid location.");
 
             /*moveTry is copied to the position created outside the loop,
               so it can be used in the while statement and returned(if the
@@ -142,61 +147,63 @@ public class GameScreen {
     }
 
     /**
-     * @ensures (0 <=row <= 7)
+     * @requires
+     * @ensures [row is an integer]
      * @return row, which is the row input from the user
      */
     private static int getRowInput() {
 
-        int row = -1;
-        char inputRow;
+        int row = 0;
+        boolean hasRow = false;
         Scanner input = new Scanner(System.in);
 
-        //Runs until the user has given correct input
+        System.out.println("Please enter the row of your move.");
+
+        //Runs until a row is entered by the user
         do {
-            System.out.println("Please enter the row of your move" +
-                    "(0 - 7)");
-
-            //Tries to read an integer from the user
-            inputRow = input.nextLine().charAt(0);
-
-            //checking to see if char is withing range before parsing
-            if (inputRow < '0' || inputRow > '7')
-                System.out.println("Error, invalid input.");
-            else
-                row = Character.getNumericValue(inputRow);
-
-
-        } while (row == -1);
+            //Checking to see if user entered an integer
+            if(input.hasNextInt()) {
+                row = input.nextInt();
+                hasRow = true;
+            }
+            //Printing error and clearing scanner if not an integer
+            else {
+                System.out.println("Error, please enter an integer value " +
+                        " for the row.");
+                input.next();
+            }
+        } while (!hasRow);
 
         return row;
     }
 
     /**
-     * @ensures (0 <= col <= 7)
+     * @requires
+     * @ensures [col is an integer]
      * @return col, which is the column input from the user
      */
     private static int getColInput() {
 
-        int col = -1;
-        char inputCol;
+        int col = 0;
+        boolean hasCol = false;
         Scanner input = new Scanner(System.in);
 
-        //Runs until the user has given correct input
+        System.out.println("Please enter the column of your move.");
+
+        //Runs until a column is entered by the user
         do {
-            System.out.println("Please enter the column of your move" +
-                    "(0 - 7)");
-
-            //Tries to read an integer from the user
-            inputCol = input.nextLine().charAt(0);
-
-            //checking to see if char is withing range before parsing
-            if (inputCol < '0' || inputCol > '7')
-                System.out.println("Error, invalid input.");
-            else
-                col = Character.getNumericValue(inputCol);
-
-
-        } while (col == -1);
+            //Checking to see if user entered an integer
+            if(input.hasNextInt()) {
+                col = input.nextInt();
+                hasCol = true;
+            }
+            //Printing error and clearing buffer if not
+            else {
+                System.out.println("Error, please enter an integer value " +
+                        " for the column.");
+                input.next();
+            }
+        } while (!hasCol);
 
         return col;
     }

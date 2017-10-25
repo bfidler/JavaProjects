@@ -1,4 +1,4 @@
-package TicTacToe;
+package cpsc2150.hw2;
 public class BoardPosition {
 
     //fields

@@ -1,12 +1,10 @@
-package TicTacToe;
-import TicTacToe.BoardPosition;
+package cpsc2150.hw2;
 
 public class GameBoard {
 
     //fields
     private char[][] theBoard;
-    public static final int BOARD_LW = 8;
-    public static final int MAX_BOARD_SPACES = 64;
+    private static final int BOARD_LW = 8;
 
     /**
      * @ensures [Board is created and board is empty]
@@ -29,17 +27,25 @@ public class GameBoard {
     /**
      *
      * @param pos
-     * @return true if the position is empty, false if not
+     * @requires [pos has a row and a column]
+     * @ensures [pos on the board is available]
+     * @return true if the position is empty and on the board, false if not
      */
     public boolean checkSpace(BoardPosition pos){
 
-        return(theBoard[pos.getRow()][pos.getColumn()] == ' ');
+        if (pos.getRow() > -1 && pos.getRow() < BOARD_LW)
+            if (pos.getColumn() > -1 && pos.getColumn() < BOARD_LW)
+                return(theBoard[pos.getRow()][pos.getColumn()] == ' ');
+
+        return false;
     }
 
     /**
      *
      * @param pos
-     * @requires (pos.checkSpace == true)
+     * @requires (pos.checkSpace == true) &&
+     *  (0 <= pos.getRow() < BOARD_LW) &&
+     *  (0 <= pos.getCol() < BOARD_LW)
      * @ensures [Another marker is not overwritten]
      */
     public void placeMarker(BoardPosition pos){
@@ -97,7 +103,7 @@ public class GameBoard {
      * @ensures [the proper row of the board is checked for a win]
      * @return true if the move won the game horizontally, false if not
      */
-    public boolean checkHorizontalWin(BoardPosition pos){
+    private boolean checkHorizontalWin(BoardPosition pos){
         //inLine counts the number of X/Os in a row
         int inLine = 0, col = 0;
 
@@ -127,7 +133,7 @@ public class GameBoard {
      * @ensures [the proper diagonals of the board is checked for a win]
      * @return true if the move won the game diagonally, false if not
      */
-    public boolean checkDiagonalWin(BoardPosition pos){
+    private boolean checkDiagonalWin(BoardPosition pos){
         //inline counts the number of Xs and Os
         int inLine = 0;
         int row = pos.getRow(), col = pos.getColumn();
@@ -206,8 +212,15 @@ public class GameBoard {
     @Override
     public String toString(){
 
-        //Creating a string to return and labeling the columns
-        String boardString = ("  0 1 2 3 4 5 6 7 \n");
+        //Creating a string to return
+        String boardString = "  ";
+
+        //labeling the columns
+        for(int i = 0; i < BOARD_LW; i++)
+            boardString = boardString + i + " ";
+
+        //next line
+        boardString = boardString + '\n';
 
         //Double loop to access each board space
         for(int i = 0; i < BOARD_LW; i++){
