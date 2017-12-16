@@ -1,0 +1,1 @@
+This program is a tic tac toe program with an interface design for the game board. It has two implementations for this interface. The game is run by gamescreen which asks for user input in the form of text. The player can customize board size as well as number to win. A junit test file is also included which can be altered to test both implementations.
