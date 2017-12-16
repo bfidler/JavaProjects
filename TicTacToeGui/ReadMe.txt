@@ -1,0 +1,1 @@
+This program uses a model view control pattern to implement a gui version of the tic tac toe program. The board is 10x10 Board with 5 in a row to win. The view java file was provided along with the template for the controller. The controller code itself was added and the model was recycled from the orginal tictactoe program.
