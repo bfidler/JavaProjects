@@ -1,1 +1,0 @@
-This program is an 8x8 TicTacToe game. It takes 5 in a row to win, and declares the game a Cat if no one wins. The first player chooses if he is an X or an O, and the 2nd player gets the other marker. The game is played (asking each player for his row/column for each move and printing the board after each move), and then the user is asked if he wants to play again.
